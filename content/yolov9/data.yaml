@@ -1,0 +1,15 @@
+names:
+  - Hardhat
+  - Mask
+  - NO-Hardhat
+  - NO-Mask
+  - NO-Safety Vest
+  - Person
+  - Safety Cone
+  - Safety Vest
+  - Machinery
+  - Vehicle
+nc: 10
+test: C:\Users\jason\Downloads\Yolov9_Fine_Tunne\yolov9\css-data\test\images
+train: C:\Users\jason\Downloads\Yolov9_Fine_Tunne\yolov9\css-data\train\images
+val: C:\Users\jason\Downloads\Yolov9_Fine_Tunne\yolov9\css-data\valid\images
