@@ -1,6 +1,6 @@
 /venv
 /client/node_modules
-model
+
 content/yolov9/runs/detect/epochs_50/weights
 content/yolov9/runs/detect/epochs_1006/weights
 content/yolov9/pre_train_model

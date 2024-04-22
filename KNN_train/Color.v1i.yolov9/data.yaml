@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['helmet_blue', 'helmet_orange', 'helmet_white', 'helmet_yellow']
+
+roboflow:
+  workspace: dwei
+  project: color-2ypdo
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/dwei/color-2ypdo/dataset/1
