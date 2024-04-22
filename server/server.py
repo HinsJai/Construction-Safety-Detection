@@ -14,6 +14,7 @@ from ultralytics import YOLO
 import concurrent.futures as cf
 from vidgear.gears import CamGear
 from collections import Counter
+import joblib
 
 
 sys.path.extend([".."])
@@ -21,14 +22,9 @@ sys.path.extend([".."])
 app = Flask(__name__)
 CORS(app)
 
-# UPLOAD_FOLDER = "uploaded"
-# app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-# ALLOWED_EXTENSIONS = {"mp4", "jpg", "jpeg", "png"}
-# os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
-
 # CURRENT_SOURCE = "camera"  # 'camera' or 'file'
 VIDEO_SOURCE = 0  # Default camera
-youtube = "http://www.youtube.com/watch?v=q0kPBRIPm6o"  # Default youtube live stream
+youtube = "https://www.youtube.com/watch?v=DRNivy7rkTg"  # Default youtube live stream
 
 cap = cv2.VideoCapture(VIDEO_SOURCE)
 youtube_cap = CamGear(source=youtube, stream_mode=True, logging=True).start()
@@ -41,11 +37,42 @@ if frame_width > 0:
     resize_height = int((resize_width / frame_width) * frame_height)
 
 model = YOLO("../model/best_100.pt")
+knn, encoder = joblib.load("../model/helmet_color_cls.pkl", mmap_mode="r")
+
+
+def get_helmet_color(label_index):
+    match label_index:
+        case 0:
+            return "Blue"
+        case 1:
+            return "Orange"
+        case 2:
+            return "White"
+        case 3:
+            return "Yellow"
+
+
+def image_to_histogram(image, bins=32):
+    histogram = []
+    for i in range(3):  # Assuming the image is in BGR format
+        hist = cv2.calcHist([image], [i], None, [bins], [0, 256])
+        histogram.extend(hist.flatten())
+    return histogram
+
+
+def colored_helmet(frame, x1: int, y1: int, x2: int, y2: int) -> int:
+    helmet_image = frame[y1:y2, x1:x2]
+    histogram = image_to_histogram(helmet_image)
+    prediction = knn.predict([histogram])
+    predicted_label = encoder.inverse_transform(prediction)
+    label = get_helmet_color(int(predicted_label[0]))
+    return label
+
+
+from collections import Counter
 
 
 def predict_and_detect(model, img, conf=0.5) -> tuple:
-
-    # img = cv2.resize(img, (resize_width, resize_height))
 
     img = cv2.resize(img, (resize_width, resize_height))
 
@@ -56,7 +83,6 @@ def predict_and_detect(model, img, conf=0.5) -> tuple:
         class_detections_values.append(results[0].boxes.cls.tolist().count(k))
     # create dictionary of objects detected per class
     classes_detected = dict(zip(names.values(), class_detections_values))
-
     if not results:
         results = []
 
@@ -67,9 +93,13 @@ def predict_and_detect(model, img, conf=0.5) -> tuple:
             x2 = int(box.xyxy[0][2])
             y2 = int(box.xyxy[0][3])
             label = result.names[int(box.cls[0])]
+
+            if label == "Hardhat":
+                label = colored_helmet(img, x1, y1, x2, y2)
+
             conf = ceil((box.conf[0] * 100))
 
-            text_color = (255, 255, 255)
+            text_color = (0, 0, 0)
             box_color = get_box_color(int(box.cls[0]))
 
             # Draw the rectangle background for text
@@ -112,7 +142,12 @@ def predict_and_detect(model, img, conf=0.5) -> tuple:
     return img, results
 
 
-def process_frame(frame) -> np.ndarray:
+# def process_frame(frame) -> np.ndarray:
+#     result_frame, _,classes_detected = predict_and_detect(model, frame)
+#     return result_frame,classes_detected
+
+
+def process_frame(frame) -> tuple:
     result_frame, _ = predict_and_detect(model, frame)
     return result_frame
 
@@ -133,11 +168,7 @@ def get_box_color(index: int) -> tuple:
         case 7:
             return (0, 255, 0)  # Green
         case _:
-            return (255, 0, 0)  # Blue
-
-
-# def allowed_file(filename) -> bool:
-#     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+            return (173, 216, 230)  # Blue
 
 
 @app.route("/image_predict", methods=["POST"])
@@ -241,7 +272,7 @@ def switch_to_youtube() -> Response:
     CURRENT_SOURCE = "youtube"
     youtube_url = request.json["youtubeUrl"]
     if youtube_url == "":
-        youtube_url = "http://www.youtube.com/watch?v=q0kPBRIPm6o"
+        youtube_url = "https://www.youtube.com/watch?v=DRNivy7rkTgo"
 
     youtube_cap = CamGear(source=youtube_url, stream_mode=True, logging=False).start()
     return jsonify({"message": "Switched to youtube"}), 200

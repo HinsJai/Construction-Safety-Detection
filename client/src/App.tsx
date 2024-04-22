@@ -86,56 +86,83 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      {/* Add a text field for the image upload */}
-      <TextField
-        type="file"
-        inputProps={{ accept: "image/*" }}
-        onChange={handleFileChange}
-        style={{ display: "block", margin: "10px 0" }}
-      />
-      <Button variant="contained" color="primary" onClick={handleImagePredict}>
-        Upload and Predict
-      </Button>
-
-      {/* Add a text field for the youtube URL */}
-      <TextField
-        type="url"
-        style={{ display: "block", margin: "10px 0" }}
-        value={youtubeUrl}
-        onChange={handleYoutubeUrlChange}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={switchToYoutube}
-        style={{ marginLeft: "10px" }}
+    <div
+      className="p-4 bg-gray-200 bg-opacity-80"
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <div className="mb-4">
+        <span className="p-3 text-2xl font-bold bg-yellow-400 mb-3 rounded-md">
+          Cosntruction safety detection
+        </span>
+        <span className="ml-4">
+          {/* Camera switch button */}
+          {!isCameraActive && (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={switchToCamera}
+              style={{ marginBottom: "10px" }}
+            >
+              Switch to Camera
+            </Button>
+          )}
+        </span>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "10px",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
       >
-        Youtube predict
-      </Button>
-
-      {/* Add a button to switch to the camera feed */}
-      {!isCameraActive && (
+        {/* File upload section */}
+        <TextField
+          type="file"
+          inputProps={{ accept: "image/*" }}
+          onChange={handleFileChange}
+          style={{ flexGrow: 1 }}
+        />
         <Button
           variant="contained"
-          color="secondary"
-          onClick={switchToCamera}
+          color="primary"
+          onClick={handleImagePredict}
           style={{ marginLeft: "10px" }}
         >
-          Switch to Camera
+          <p className="font-semibold">Image Predict</p>
         </Button>
-      )}
 
-      <Card sx={{ maxWidth: 1080, marginTop: "20px" }}>
+        {/* YouTube URL section */}
+        <TextField
+          type="url"
+          value={youtubeUrl}
+          onChange={handleYoutubeUrlChange}
+          style={{ flexGrow: 1, marginLeft: "10px" }}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={switchToYoutube}
+          style={{ marginLeft: "10px" }}
+        >
+          <p className="font-semibold">Youtube Predict</p>
+        </Button>
+      </div>
+
+      {/* Display area */}
+      <Card
+        sx={{ maxWidth: 1920, marginTop: "10px", bgcolor: "rgb(0, 240, 0)" }}
+      >
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {descType}
+            <p className="font-semibold text-2xl">{descType}</p>
           </Typography>
         </CardContent>
         <img
           src={imageSrc}
           alt={descType}
-          style={{ width: 1080, height: 720 }}
+          style={{ width: 1920, height: 720 }}
         />
       </Card>
     </div>
