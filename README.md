@@ -75,18 +75,18 @@ This application is developed as an individual project for ITE3905 (EA Assignmen
 Here are some screenshots demonstrating the Yummy Restaurant System's interfaces:
 
 ###  Youtube sorce detection
-<img src="src/iamges/youtube_source.png" alt="Youtube Source" width="600"/>
+<img src="client/src/images/youtube_source.png" alt="Youtube Source" width="600"/>
 
 ###  Image Source
-<img src="client/src/iamges/image_source.png" alt="Image Source" width="600"/>
+<img src="client/src/images/image_source.png" alt="Image Source" width="600"/>
 
 ## 🖼️ Model Evaluation
 
 ###  Traning evalute
-<img src="client/src/iamges/model-traning-evalute.png" alt="Traning evalute" width="600"/>
+<img src="client/src/images/model-traning-evalute.png" alt="Traning evalute" width="600"/>
 
 ###  Confusion matrix
-<img src="client/src/iamges/confusion matrix.png" alt="Confusion matrix" width="600"/>
+<img src="client/src/images/confusion matrix.png" alt="Confusion matrix" width="600"/>
 
 ## 🚀 Getting Started
 
