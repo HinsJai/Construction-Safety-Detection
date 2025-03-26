@@ -1,5 +1,5 @@
 
-# 🏗️ Construction Safety Detection (ITE3905_AI)
+# 🏗️ Construction Safety Detection
 
 A web application for real-time construction site safety monitoring using YOLOv9 and K-Nearest Neighbors (KNN). This system detects whether workers are wearing proper safety gear and identifies their roles based on helmet color.
 
