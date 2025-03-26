@@ -88,41 +88,6 @@ Here are some screenshots demonstrating the Yummy Restaurant System's interfaces
 ###  Confusion matrix
 <img src="client/src/images/confusion matrix.png" alt="Confusion matrix" width="600"/>
 
-## 🚀 Getting Started
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/HinsJai/ITE3905_AI.git
-cd ITE3905_AI
-```
-
-### 2. Setup Environment
-
-Install Python dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Make sure to install:
-- Flask
-- OpenCV
-- VidGear
-- Scikit-learn
-- YOLOv9 dependencies
-
-### 3. Run the Backend
-```bash
-python app.py
-```
-
-### 4. Run the Frontend
-From the `client` directory:
-
-```bash
-npm install
-npm start
-```
 
 ## 📂 Dataset Links
 
