@@ -75,7 +75,7 @@ This application is developed as an individual project for ITE3905 (EA Assignmen
 Here are some screenshots demonstrating the Yummy Restaurant System's interfaces:
 
 ###  Youtube sorce detection
-<img src="client/src/iamges/youtube_source.png" alt="Youtube Source" width="600"/>
+<img src="src/iamges/youtube_source.png" alt="Youtube Source" width="600"/>
 
 ###  Image Source
 <img src="client/src/iamges/image_source.png" alt="Image Source" width="600"/>
