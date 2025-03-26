@@ -68,6 +68,25 @@ This application is developed as an individual project for ITE3905 (EA Assignmen
 - **KNN**
   - Sensitive to noise and irrelevant features
   - Lower accuracy compared to deep models
+ 
+
+## 🖼️ UI Showcase - Partial
+
+Here are some screenshots demonstrating the Yummy Restaurant System's interfaces:
+
+###  Youtube sorce detection
+<img src="client/src/iamges/youtube_source.png" alt="Youtube Source" width="600"/>
+
+###  Image Source
+<img src="client/src/iamges/image_source.png" alt="Image Source" width="600"/>
+
+## 🖼️ Model Evaluation
+
+###  Traning evalute
+<img src="client/src/iamges/model-traning-evalute.png" alt="Traning evalute" width="600"/>
+
+###  Confusion matrix
+<img src="client/src/iamges/confusion matrix.png" alt="Confusion matrix" width="600"/>
 
 ## 🚀 Getting Started
 
